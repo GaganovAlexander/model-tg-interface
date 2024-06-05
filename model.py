@@ -1,18 +1,24 @@
 import pickle
+from io import BytesIO
 import re
+from os import environ
 
+from requests import get
 from keras_preprocessing.sequence import pad_sequences
 from stop_words import get_stop_words
+from dotenv import find_dotenv, load_dotenv
 
 
-with open('model.pkl', 'rb') as file:
-    model = pickle.load(file)
+load_dotenv(find_dotenv())
+BUCKET_URL = environ.get('BUCKET_URL')
+response = get(f'{BUCKET_URL}/model.pkl')
+model = pickle.load(BytesIO(response.content))
 
-with open('scaler.pkl', 'rb') as file:
-    scaler = pickle.load(file)
+response = get(f'{BUCKET_URL}/scaler.pkl')
+scaler = pickle.load(BytesIO(response.content))
 
-with open('tokenizer.pkl', 'rb') as file:
-    tokenizer = pickle.load(file)
+response = get(f'{BUCKET_URL}/tokenizer.pkl')
+tokenizer = pickle.load(BytesIO(response.content))
 
 russian_stop_words = set(get_stop_words('ru'))
 max_seq_length = 260

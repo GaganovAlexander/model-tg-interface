@@ -27,4 +27,5 @@ async def start(dp: Dispatcher):
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+    print('ready')
     run(start(dp))
