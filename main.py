@@ -19,7 +19,7 @@ async def start_handler(message: Message):
     await message.answer("Этот бот может предсказать колличество коментариев, которое будет под постом про транспорт в ВК. Просто скинь сюда текст поста:")
 
 async def post_text_hanler(message: Message):
-    await message.answer(f"Предсказанное количество коментариев: {make_prediction(message.text)}")
+    await message.answer(f"Предсказанное количество коментариев: {make_prediction(message.text):.3f}")
 
 async def start(dp: Dispatcher):
     dp.message.register(start_handler, Command(commands='start'))
