@@ -20,8 +20,11 @@ scaler = pickle.load(BytesIO(response.content))
 response = get(f'{BUCKET_URL}/tokenizer.pkl')
 tokenizer = pickle.load(BytesIO(response.content))
 
+response = get(f'{BUCKET_URL}/max_seq_length.txt')
+max_seq_length = int(response.content)
+print(max_seq_length)
+
 russian_stop_words = set(get_stop_words('ru'))
-max_seq_length = 260
 
 # Функция для очистки текста
 def clean_text(text):
